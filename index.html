@@ -171,12 +171,38 @@
     max-width:12ch;
   }
   .hero h1 .oncue{color:var(--coral)}
-  .hero-sub{
-    margin-top:36px;display:flex;gap:48px;align-items:flex-start;flex-wrap:wrap;justify-content:space-between;
+  .hero-sub{margin-top:34px;max-width:540px;font-size:19px;line-height:1.65;color:var(--t-mut)}
+  .hero-sub strong{color:var(--t-ink);font-weight:600}
+
+  /* prompt bar — the brief types itself */
+  .pbar{
+    margin-top:42px;max-width:660px;display:flex;align-items:center;gap:16px;
+    background:var(--ink);border-radius:18px;padding:12px 12px 12px 24px;
+    box-shadow:0 34px 70px -30px rgba(16,16,20,.55);
+    transition:transform .25s var(--ease),box-shadow .25s;
   }
-  .hero-sub p{max-width:480px;font-size:19px;line-height:1.65;color:var(--t-mut)}
-  .hero-sub p strong{color:var(--t-ink);font-weight:600}
-  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+  .pbar:hover{transform:translateY(-3px);box-shadow:0 42px 80px -30px rgba(16,16,20,.6)}
+  .pbar .pfx{font-family:var(--mono);font-weight:700;color:var(--coral);font-size:18px;flex-shrink:0}
+  .pbar .ptxt{
+    flex:1;font-family:var(--mono);font-size:15px;color:var(--bone);
+    white-space:nowrap;overflow:hidden;min-height:24px;display:flex;align-items:center;
+  }
+  .pbar .pcaret{
+    display:inline-block;width:9px;height:19px;background:var(--coral);margin-left:3px;flex-shrink:0;
+    animation:blink 1.1s steps(1) infinite;
+  }
+  .pbar .btn{flex-shrink:0;padding:13px 26px;font-size:14.5px}
+  @media(max-width:600px){
+    .pbar{flex-wrap:wrap;padding:16px}
+    .pbar .btn{width:100%}
+    .pbar .ptxt{font-size:13.5px}
+  }
+  .hero-alts{
+    margin-top:24px;display:flex;gap:28px;flex-wrap:wrap;
+    font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;color:var(--t-mut);
+  }
+  .hero-alts a{transition:color .2s;border-bottom:1px solid var(--hair);padding-bottom:3px}
+  .hero-alts a:hover{color:var(--coral);border-color:var(--coral)}
   .hero-meta{
     margin-top:76px;padding:22px 0;border-top:1px solid var(--hair);
     display:flex;gap:40px;flex-wrap:wrap;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--t-mut);
@@ -541,12 +567,15 @@
   <div class="wrap">
     <p class="kicker hero-tag rv on">Independent design studio</p>
     <h1 class="rv on rv-d1">Design,<br><span class="oncue">on cue</span><span class="caret" aria-hidden="true"></span></h1>
-    <div class="hero-sub">
-      <p class="rv on rv-d2">Prompt turns a brief into <strong>brands, products, and stories</strong> that move fast and land hard. Senior hands, sharp thinking, zero agency overhead.</p>
-      <div class="hero-ctas rv on rv-d3">
-        <a class="btn btn-ink" href="#contact">Start a project <span class="arr">→</span></a>
-        <a class="btn btn-ghost" href="#work">See the work</a>
-      </div>
+    <p class="hero-sub rv on rv-d2">Prompt turns a brief into <strong>brands, products, and stories</strong> that move fast and land hard. Senior hands, sharp thinking, zero agency overhead.</p>
+    <a class="pbar rv on rv-d3" href="#contact" aria-label="Start a project — brief us">
+      <span class="pfx">&gt;</span>
+      <span class="ptxt"><span id="ptype">a brand that means business</span><span class="pcaret" aria-hidden="true"></span></span>
+      <span class="btn btn-coral">Run brief <span class="arr">→</span></span>
+    </a>
+    <div class="hero-alts rv on rv-d3">
+      <a href="#work">see the work ↓</a>
+      <a href="#tiers">engagements</a>
     </div>
     <div class="hero-meta rv on rv-d4">
       <span><b>Lagos, Nigeria</b> · remote worldwide</span>
@@ -910,6 +939,30 @@
 </footer>
 
 <script>
+  // hero prompt bar — briefs type themselves
+  (() => {
+    const el = document.getElementById('ptype');
+    if (matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+    const briefs = [
+      'a brand that means business',
+      'a landing page that converts',
+      'a product UI users trust',
+      'a deck that raises the round',
+      'a story people repeat'
+    ];
+    let p = 0, i = briefs[0].length, deleting = true;
+    function tick() {
+      const text = briefs[p];
+      i += deleting ? -1 : 1;
+      el.textContent = text.slice(0, i);
+      let wait = deleting ? 32 : 58;
+      if (!deleting && i === text.length) { wait = 2600; deleting = true; }
+      else if (deleting && i === 0) { p = (p + 1) % briefs.length; deleting = false; wait = 420; }
+      setTimeout(tick, wait);
+    }
+    setTimeout(tick, 2400); // let the first brief linger before cycling
+  })();
+
   // scroll progress bar
   const bar = document.querySelector('.progress');
   addEventListener('scroll', () => {
