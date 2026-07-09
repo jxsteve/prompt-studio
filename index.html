@@ -69,7 +69,7 @@
   .sec-head p{max-width:380px;color:var(--t-mut);font-size:16px}
   .caret{
     display:inline-block;width:.13em;height:.8em;background:var(--coral);
-    margin-left:.08em;transform:translateY(.06em);animation:blink 1.1s steps(1) infinite;
+    margin-left:.08em;transform:translateY(.06em);animation:softblink 1.2s ease-in-out infinite;
   }
   @keyframes blink{50%{opacity:0}}
 
@@ -189,8 +189,9 @@
   }
   .pbar .pcaret{
     display:inline-block;width:9px;height:19px;background:var(--coral);margin-left:3px;flex-shrink:0;
-    animation:blink 1.1s steps(1) infinite;
+    border-radius:2px;animation:softblink 1.2s ease-in-out infinite;
   }
+  @keyframes softblink{0%,100%{opacity:1}50%{opacity:.15}}
   .pbar .btn{flex-shrink:0;padding:13px 26px;font-size:14.5px}
   @media(max-width:600px){
     .pbar{flex-wrap:wrap;padding:16px}
@@ -955,12 +956,14 @@
       const text = briefs[p];
       i += deleting ? -1 : 1;
       el.textContent = text.slice(0, i);
-      let wait = deleting ? 32 : 58;
-      if (!deleting && i === text.length) { wait = 2600; deleting = true; }
-      else if (deleting && i === 0) { p = (p + 1) % briefs.length; deleting = false; wait = 420; }
+      let wait;
+      if (!deleting && i === text.length) { wait = 3000; deleting = true; }        // linger on full brief
+      else if (deleting && i === 0) { p = (p + 1) % briefs.length; deleting = false; wait = 600; } // breathe before next
+      else if (deleting) { wait = 26; }                                            // steady, quick erase
+      else { wait = i < 3 ? 110 : 62; }                                            // ease into each phrase
       setTimeout(tick, wait);
     }
-    setTimeout(tick, 2400); // let the first brief linger before cycling
+    setTimeout(tick, 3000); // let the first brief linger before cycling
   })();
 
   // scroll progress bar
