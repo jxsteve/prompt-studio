@@ -146,6 +146,14 @@
   }
   /* hero ornaments */
   .orn{position:absolute;pointer-events:none}
+  .hero-caret{
+    position:absolute;top:46%;right:2%;transform:translateY(-50%);width:min(34vw,460px);opacity:.9;
+    pointer-events:none;
+  }
+  .hero-caret svg{width:100%;height:auto}
+  .hero-caret .chev{stroke:var(--bone-2);animation:caretPulse 6s ease-in-out infinite}
+  .hero-caret .bar{fill:var(--bone-2);animation:caretPulse 6s ease-in-out 3s infinite}
+  @keyframes caretPulse{50%{opacity:.55}}
   .orn-ring{top:110px;right:6%;width:230px;height:230px;border:1.5px dashed var(--coral);border-radius:50%;opacity:.55;animation:spin 44s linear infinite}
   .orn-ring::after{content:"";position:absolute;top:-6px;left:50%;width:11px;height:11px;border-radius:50%;background:var(--coral)}
   .orn-ring i{position:absolute;inset:38px;border:1px solid var(--hair);border-radius:50%}
@@ -155,7 +163,7 @@
   .orn-plus{top:37%;right:31%;font-family:var(--mono);font-size:26px;font-weight:700;color:var(--volt);opacity:.6;animation:bob 5.5s ease-in-out 1s infinite}
   @keyframes bob{50%{transform:translateY(-12px)}}
   .orn-coord{bottom:110px;right:4.5%;font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--t-mut);opacity:.75;writing-mode:vertical-rl}
-  @media(max-width:900px){.orn{display:none}}
+  @media(max-width:900px){.orn{display:none}.hero-caret{opacity:.35;width:44vw;right:-8%}}
 
   .hero-tag{margin-bottom:30px}
   .hero h1{
@@ -220,6 +228,12 @@
     background:radial-gradient(circle,rgba(91,55,240,.10),transparent 62%);pointer-events:none;
   }
   .manifesto .kicker{justify-content:center}
+  .manifesto .mark{
+    width:64px;height:64px;border-radius:15px;background:var(--ink);margin:0 auto 34px;
+    display:grid;place-items:center;box-shadow:0 24px 48px -20px rgba(16,16,20,.4);
+    transform:rotate(-6deg);
+  }
+  .manifesto .mark svg{width:36px;height:36px}
   .manifesto h2{font-size:clamp(42px,7.4vw,108px);letter-spacing:-.045em;line-height:1.02;margin-top:26px}
   .manifesto .ol{color:transparent;-webkit-text-stroke:1.5px var(--ink)}
   .manifesto .co{color:var(--coral)}
@@ -262,6 +276,11 @@
 
   /* ============ WORK ============ */
   .work{background:var(--ink);color:var(--bone);padding:140px 0;position:relative;overflow:hidden}
+  .work::before{
+    content:"";position:absolute;top:-60px;right:-80px;width:420px;height:420px;pointer-events:none;opacity:.55;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M20 18 L36 32 L20 46' fill='none' stroke='%231d1d24' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='41' y='19' width='6' height='26' rx='3' fill='%231d1d24'/%3E%3C/svg%3E");
+    background-size:contain;background-repeat:no-repeat;
+  }
   .work .sec-head p{color:var(--t-bone-mut)}
   .work-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:22px}
   .wk{
@@ -361,7 +380,12 @@
   .tier li{display:flex;gap:12px;font-size:14.5px;align-items:flex-start}
   .tier li::before{content:">";font-family:var(--mono);font-weight:700;color:var(--coral);line-height:1.5}
   .tier .btn{width:100%}
-  .tier-hot{background:var(--ink);border-color:var(--ink);color:var(--bone)}
+  .tier-hot{background:var(--ink);border-color:var(--ink);color:var(--bone);overflow:hidden}
+  .tier-hot::after{
+    content:"";position:absolute;right:-46px;bottom:-46px;width:190px;height:190px;pointer-events:none;opacity:.8;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M20 18 L36 32 L20 46' fill='none' stroke='%231d1d24' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='41' y='19' width='6' height='26' rx='3' fill='%231d1d24'/%3E%3C/svg%3E");
+    background-size:contain;background-repeat:no-repeat;
+  }
   .tier-hot .t-name{color:var(--coral)}
   .tier-hot .t-for{color:var(--t-bone-mut)}
   .tier-hot li{color:var(--bone)}
@@ -503,6 +527,12 @@
 <!-- ============ HERO ============ -->
 <header class="hero" id="top">
   <div class="hero-bg" aria-hidden="true">
+    <span class="hero-caret">
+      <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+        <path class="chev" d="M14 12 L38 32 L14 52" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect class="bar" x="44" y="14" width="7" height="36" rx="3.5"/>
+      </svg>
+    </span>
     <span class="orn orn-ring"><i></i></span>
     <span class="orn orn-sq"></span>
     <span class="orn orn-plus">+</span>
@@ -705,6 +735,9 @@
 <!-- ============ MANIFESTO ============ -->
 <section class="manifesto">
   <div class="wrap rv">
+    <span class="mark" aria-hidden="true">
+      <svg viewBox="0 0 64 64"><path d="M20 18 L36 32 L20 46" fill="none" stroke="#FF4A2B" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><rect x="41" y="19" width="6" height="26" rx="3" fill="#F5F3ED"/></svg>
+    </span>
     <p class="kicker">The belief</p>
     <h2>Great work starts<br><span class="ol">with a great</span> <span class="co">prompt.</span></h2>
     <p>A sharp brief beats a big budget. Bring us the question — we'll bring the answer, crafted and shipped.</p>
