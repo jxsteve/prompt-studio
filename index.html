@@ -373,6 +373,49 @@
     border:1.5px dashed rgba(255,74,43,.5);border-radius:22px;
   }
 
+  /* live case study tile + modal */
+  .wk-live{cursor:pointer}
+  .wk-live:hover{border-color:var(--coral)}
+  .wk-live .wk-soon{background:var(--coral);border-color:var(--coral);color:var(--bone)}
+  .wk-more{
+    display:inline-flex;align-items:center;gap:8px;margin-top:14px;
+    font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--coral);font-weight:700;
+  }
+  .wk-live:hover .wk-more{text-decoration:underline;text-underline-offset:4px}
+  .cs{
+    max-width:760px;width:calc(100% - 44px);border:1px solid var(--line-dark);border-radius:22px;
+    background:var(--ink);color:var(--bone);padding:0;overflow:hidden;
+  }
+  .cs::backdrop{background:rgba(16,16,20,.72);backdrop-filter:blur(6px)}
+  .cs-in{padding:46px 46px 50px;max-height:82vh;overflow-y:auto}
+  .cs-close{
+    position:absolute;top:18px;right:18px;width:42px;height:42px;border-radius:50%;cursor:pointer;
+    background:var(--ink-2);border:1px solid var(--line-dark);color:var(--t-bone-mut);
+    font-size:18px;line-height:1;transition:color .2s,border-color .2s;
+  }
+  .cs-close:hover{color:var(--bone);border-color:var(--bone)}
+  .cs .kicker{color:var(--coral)}
+  .cs h3{font-size:clamp(28px,4vw,42px);margin-top:16px;letter-spacing:-.03em}
+  .cs-meta{
+    display:flex;gap:14px 32px;flex-wrap:wrap;margin-top:22px;padding:18px 0;
+    border-top:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark);
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--t-bone-mut);
+  }
+  .cs-meta b{color:var(--bone);font-weight:700}
+  .cs h4{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--coral);margin:34px 0 14px}
+  .cs p{color:var(--t-bone-mut);font-size:15.5px;line-height:1.75}
+  .cs ul{list-style:none;display:grid;gap:11px;margin-top:4px}
+  .cs li{display:flex;gap:12px;font-size:14.5px;color:var(--t-bone-mut);align-items:flex-start}
+  .cs li::before{content:">";font-family:var(--mono);font-weight:700;color:var(--coral);line-height:1.5}
+  .cs li b{color:var(--bone);font-weight:600}
+  .cs-note{
+    margin-top:34px;padding:22px 26px;border-radius:14px;background:var(--ink-2);border:1px solid var(--line-dark);
+    font-family:var(--mono);font-size:13.5px;color:var(--bone);line-height:1.8;
+  }
+  .cs-note .pr{color:var(--coral);font-weight:700}
+  .cs-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px}
+  @media(max-width:600px){.cs-in{padding:52px 24px 36px}}
+
   /* ============ PROCESS ============ */
   .process{padding:140px 0}
   .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;counter-reset:step}
@@ -680,21 +723,22 @@
         <p class="kicker">Selected work</p>
         <h2>Proof, not promises.</h2>
       </div>
-      <p>First case studies are in production now. Each project ships with a full breakdown — brief, thinking, and outcome.</p>
+      <p>Case study 01 is live — the brand and site you're on right now. Client case studies ship next, each with a full breakdown: brief, thinking, outcome.</p>
     </div>
     <div class="work-grid">
-      <article class="wk wk-a rv">
+      <article class="wk wk-a wk-live rv" id="cs-tile" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="cs-prompt">
         <div class="wk-art art-1" aria-hidden="true"></div>
-        <span class="wk-soon">Case study · soon</span>
+        <span class="wk-soon">Case study · 01</span>
         <div class="wk-info">
-          <span class="cat">Brand + Web</span>
-          <h3>Fintech identity system</h3>
-          <p>Full identity and launch site for an African payments startup — from naming workshop to live product.</p>
+          <span class="cat">Brand + Web · self-initiated</span>
+          <h3>Prompt — Design, on cue.</h3>
+          <p>Naming, identity system, and this very site — designed and built end-to-end, brief to live.</p>
+          <span class="wk-more">Read the case study →</span>
         </div>
       </article>
       <article class="wk wk-b rv rv-d1">
         <div class="wk-art art-2" aria-hidden="true"></div>
-        <span class="wk-soon">Case study · soon</span>
+        <span class="wk-soon">In production</span>
         <div class="wk-info">
           <span class="cat">Story</span>
           <h3>Seed-round pitch deck</h3>
@@ -703,7 +747,7 @@
       </article>
       <article class="wk wk-c rv">
         <div class="wk-art art-3" aria-hidden="true"></div>
-        <span class="wk-soon">Case study · soon</span>
+        <span class="wk-soon">In production</span>
         <div class="wk-info">
           <span class="cat">Product</span>
           <h3>Mobile app UX overhaul</h3>
@@ -712,7 +756,7 @@
       </article>
       <article class="wk wk-d rv rv-d1">
         <div class="wk-art art-4" aria-hidden="true"></div>
-        <span class="wk-soon">Case study · soon</span>
+        <span class="wk-soon">In production</span>
         <div class="wk-info">
           <span class="cat">Brand</span>
           <h3>Culture-brand refresh</h3>
@@ -721,6 +765,36 @@
       </article>
     </div>
   </div>
+
+  <!-- case study 01 — Prompt itself -->
+  <dialog class="cs" id="cs-prompt" aria-labelledby="cs-prompt-title">
+    <button class="cs-close" aria-label="Close case study">✕</button>
+    <div class="cs-in">
+      <p class="kicker">Case study /01 — self-initiated</p>
+      <h3 id="cs-prompt-title">Prompt — Design, on cue.</h3>
+      <div class="cs-meta">
+        <span>Year <b>2026</b></span>
+        <span>Scope <b>Brand + Web</b></span>
+        <span>Role <b>Design &amp; build</b></span>
+        <span>Client <b>Ourselves</b></span>
+      </div>
+      <h4>The brief</h4>
+      <p>Launch an independent design agency that looks established from day one: a name with a point of view, an identity system that flexes from a WhatsApp avatar to a letterhead, and a website that converts — designed and built with no external budget and no time to waste.</p>
+      <h4>The work</h4>
+      <ul>
+        <li><b>Naming &amp; voice</b> — "Prompt": the cue that starts the work. Tagline: <b>Design, on cue.</b></li>
+        <li><b>Identity system</b> — the caret mark (<b>&gt;|</b>), an Ink / Bone / Signal Coral / Volt palette, and a Space Grotesk + Inter + Space Mono type system.</li>
+        <li><b>Applications</b> — logo suite, business card, letterhead, social kit, and icon set.</li>
+        <li><b>Website</b> — this site: designed, written, and built as a single fast static page, then deployed live.</li>
+      </ul>
+      <h4>The outcome</h4>
+      <p>You're looking at it. This site is the deliverable — the same hands that designed the brand built the product and shipped it live. That's the engagement, demonstrated.</p>
+      <div class="cs-note"><span class="pr">&gt;</span> 1 page · 0 frameworks · designed &amp; built end-to-end · live on the open web</div>
+      <div class="cs-ctas">
+        <a class="btn btn-coral" href="#contact" id="cs-cta">Start yours <span class="arr">→</span></a>
+      </div>
+    </div>
+  </dialog>
 </section>
 
 <!-- ============ PROCESS ============ -->
@@ -978,6 +1052,16 @@
     es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
   }, { threshold: .12 });
   document.querySelectorAll('.rv:not(.on)').forEach(el => io.observe(el));
+
+  // case study modal
+  const csTile = document.getElementById('cs-tile');
+  const csModal = document.getElementById('cs-prompt');
+  const openCs = () => csModal.showModal();
+  csTile.addEventListener('click', openCs);
+  csTile.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCs(); } });
+  csModal.querySelector('.cs-close').addEventListener('click', () => csModal.close());
+  csModal.addEventListener('click', e => { if (e.target === csModal) csModal.close(); }); // backdrop click
+  document.getElementById('cs-cta').addEventListener('click', () => csModal.close());
 
   // mobile menu
   const menuBtn = document.querySelector('.menu-btn');
