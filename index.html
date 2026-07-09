@@ -102,6 +102,9 @@
   .btn-ghost-d{background:transparent;border:1.5px solid var(--line-dark);color:var(--bone)}
   .btn-ghost-d:hover{border-color:var(--bone);transform:translateY(-2px)}
 
+  /* progress bar */
+  .progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:linear-gradient(90deg,var(--coral),var(--volt))}
+
   /* ============ NAV ============ */
   nav{
     position:fixed;top:0;left:0;right:0;z-index:100;
@@ -141,6 +144,19 @@
     content:"";position:absolute;top:-220px;right:-180px;width:640px;height:640px;border-radius:50%;
     background:radial-gradient(circle,rgba(255,74,43,.14),transparent 65%);
   }
+  /* hero ornaments */
+  .orn{position:absolute;pointer-events:none}
+  .orn-ring{top:110px;right:6%;width:230px;height:230px;border:1.5px dashed var(--coral);border-radius:50%;opacity:.55;animation:spin 44s linear infinite}
+  .orn-ring::after{content:"";position:absolute;top:-6px;left:50%;width:11px;height:11px;border-radius:50%;background:var(--coral)}
+  .orn-ring i{position:absolute;inset:38px;border:1px solid var(--hair);border-radius:50%}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .orn-sq{bottom:190px;right:17%;width:44px;height:44px;border:2px solid var(--volt);border-radius:10px;opacity:.55;animation:bobsq 7s ease-in-out infinite}
+  @keyframes bobsq{0%,100%{transform:rotate(22deg) translateY(0)}50%{transform:rotate(22deg) translateY(-14px)}}
+  .orn-plus{top:37%;right:31%;font-family:var(--mono);font-size:26px;font-weight:700;color:var(--volt);opacity:.6;animation:bob 5.5s ease-in-out 1s infinite}
+  @keyframes bob{50%{transform:translateY(-12px)}}
+  .orn-coord{bottom:110px;right:4.5%;font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--t-mut);opacity:.75;writing-mode:vertical-rl}
+  @media(max-width:900px){.orn{display:none}}
+
   .hero-tag{margin-bottom:30px}
   .hero h1{
     font-size:clamp(58px,10.5vw,152px);letter-spacing:-.045em;line-height:.94;
@@ -184,6 +200,30 @@
   .term-body .out{color:var(--t-bone-mut)}
   .term-body .hl{color:var(--volt)}
   .term-body .ok{color:#59d68f}
+
+  /* ============ STATS ============ */
+  .stats{padding:110px 0 0}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--hair);border-radius:20px;overflow:hidden;background:#fff}
+  .stat{padding:40px 34px 36px;position:relative;transition:background .3s}
+  .stat+.stat{border-left:1px solid var(--hair)}
+  .stat:hover{background:var(--bone-2)}
+  .stat b{font-family:var(--disp);font-weight:700;font-size:clamp(40px,4.6vw,60px);letter-spacing:-.04em;line-height:1;display:block}
+  .stat b i{font-style:normal;color:var(--coral)}
+  .stat span{display:block;margin-top:14px;font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--t-mut)}
+  @media(max-width:900px){.stats-grid{grid-template-columns:1fr 1fr}.stat:nth-child(3){border-left:none}.stat:nth-child(n+3){border-top:1px solid var(--hair)}}
+  @media(max-width:520px){.stats-grid{grid-template-columns:1fr}.stat+.stat{border-left:none;border-top:1px solid var(--hair)}}
+
+  /* ============ MANIFESTO ============ */
+  .manifesto{padding:150px 0 160px;text-align:center;position:relative;overflow:hidden}
+  .manifesto::before{
+    content:"";position:absolute;left:50%;top:-260px;transform:translateX(-50%);width:760px;height:760px;border-radius:50%;
+    background:radial-gradient(circle,rgba(91,55,240,.10),transparent 62%);pointer-events:none;
+  }
+  .manifesto .kicker{justify-content:center}
+  .manifesto h2{font-size:clamp(42px,7.4vw,108px);letter-spacing:-.045em;line-height:1.02;margin-top:26px}
+  .manifesto .ol{color:transparent;-webkit-text-stroke:1.5px var(--ink)}
+  .manifesto .co{color:var(--coral)}
+  .manifesto p{margin:30px auto 0;max-width:520px;color:var(--t-mut);font-size:17px}
 
   /* ============ SERVICES ============ */
   .services{padding:140px 0}
@@ -234,7 +274,8 @@
   .wk-b{grid-column:span 5}
   .wk-c{grid-column:span 5}
   .wk-d{grid-column:span 7}
-  .wk-art{position:absolute;inset:0}
+  .wk-art{position:absolute;inset:0;transition:transform .5s var(--ease)}
+  .wk:hover .wk-art{transform:scale(1.045)}
   .wk-info{position:relative;padding:26px 28px;background:linear-gradient(transparent,rgba(16,16,20,.92) 55%)}
   .wk-info .cat{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--coral)}
   .wk-info h3{font-size:24px;margin-top:8px}
@@ -248,16 +289,30 @@
   .art-1{background:
     radial-gradient(circle at 78% 22%,rgba(91,55,240,.5),transparent 52%),
     radial-gradient(circle at 15% 85%,rgba(255,74,43,.35),transparent 50%),var(--ink-2)}
-  .art-1::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(245,243,237,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(245,243,237,.05) 1px,transparent 1px);background-size:44px 44px}
+  .art-1::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(245,243,237,.13) 1.2px,transparent 1.3px);background-size:22px 22px}
+  .art-1::before{
+    content:"";position:absolute;top:14%;right:12%;width:150px;height:150px;border-radius:50%;
+    border:1.5px dashed rgba(245,243,237,.3);
+  }
   .art-2{background:linear-gradient(135deg,var(--coral) 0%,var(--coral-deep) 100%)}
   .art-2::after{
     content:">";position:absolute;top:50%;left:50%;transform:translate(-50%,-58%);
     font-family:var(--mono);font-weight:700;font-size:150px;color:rgba(16,16,20,.28);
   }
+  .art-2::before{
+    content:"";position:absolute;inset:0;
+    background-image:radial-gradient(rgba(16,16,20,.16) 1.5px,transparent 1.6px);background-size:16px 16px;
+    -webkit-mask-image:linear-gradient(115deg,transparent 45%,#000 85%);mask-image:linear-gradient(115deg,transparent 45%,#000 85%);
+  }
   .art-3{background:var(--bone-2)}
   .art-3::after{
     content:"";position:absolute;inset:0;
     background:repeating-linear-gradient(-45deg,transparent 0 26px,rgba(16,16,20,.09) 26px 28px);
+  }
+  .art-3::before{
+    content:"";position:absolute;top:18%;right:14%;width:110px;height:110px;border-radius:50%;
+    background:var(--volt);opacity:.85;z-index:1;
+    box-shadow:-34px 30px 0 -18px var(--coral);
   }
   .art-3 ~ .wk-info{background:linear-gradient(transparent,rgba(16,16,20,.95) 60%)}
   .art-4{background:
@@ -266,6 +321,10 @@
   .art-4::after{
     content:"";position:absolute;top:50%;left:50%;width:200px;height:200px;transform:translate(-50%,-60%) rotate(45deg);
     border:2px solid rgba(245,243,237,.16);border-radius:34px;
+  }
+  .art-4::before{
+    content:"";position:absolute;top:50%;left:50%;width:120px;height:120px;transform:translate(-50%,-64%) rotate(45deg);
+    border:1.5px dashed rgba(255,74,43,.5);border-radius:22px;
   }
 
   /* ============ PROCESS ============ */
@@ -318,6 +377,11 @@
   .studio h2{font-size:clamp(36px,4.6vw,58px);margin-top:18px}
   .studio .lede{font-size:19px;line-height:1.7;color:var(--t-mut);margin-top:28px}
   .studio .lede strong{color:var(--t-ink);font-weight:600}
+  .toolkit{
+    margin-top:34px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--t-mut);
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  }
+  .toolkit em{font-style:normal;color:var(--coral);font-weight:700}
   .founder{
     margin-top:44px;display:flex;align-items:center;gap:18px;padding:22px 26px;
     background:#fff;border:1px solid var(--hair);border-radius:16px;max-width:480px;
@@ -339,6 +403,11 @@
     content:">_";position:absolute;right:-40px;bottom:-90px;font-family:var(--mono);font-weight:700;
     font-size:340px;color:rgba(16,16,20,.14);line-height:1;pointer-events:none;
   }
+  .banner::before{
+    content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background:repeating-linear-gradient(-55deg,transparent 0 90px,rgba(16,16,20,.06) 90px 92px);
+  }
+  .banner .wrap{position:relative;z-index:1}
   .banner h2{font-size:clamp(40px,6vw,84px);max-width:14ch;letter-spacing:-.04em}
   .banner p{margin-top:22px;font-size:18px;max-width:460px;color:rgba(245,243,237,.85)}
   .banner .btn{margin-top:38px;background:var(--ink);color:var(--bone)}
@@ -410,6 +479,8 @@
 </head>
 <body>
 
+<div class="progress" aria-hidden="true"></div>
+
 <!-- ============ NAV ============ -->
 <nav aria-label="Main">
   <div class="wrap nav-in">
@@ -431,7 +502,12 @@
 
 <!-- ============ HERO ============ -->
 <header class="hero" id="top">
-  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-bg" aria-hidden="true">
+    <span class="orn orn-ring"><i></i></span>
+    <span class="orn orn-sq"></span>
+    <span class="orn orn-plus">+</span>
+    <span class="orn orn-coord">6.5244°N · 3.3792°E — LAGOS</span>
+  </div>
   <div class="wrap">
     <p class="kicker hero-tag rv on">Independent design studio</p>
     <h1 class="rv on rv-d1">Design,<br><span class="oncue">on cue</span><span class="caret" aria-hidden="true"></span></h1>
@@ -472,6 +548,16 @@
       <span class="ln out">generating → <span class="hl">identity</span> · <span class="hl">interface</span> · <span class="hl">narrative</span></span>
       <span class="ln"><span class="ok">✓ shipped.</span> <span class="out">momentum retained. no layers in between.</span></span>
     </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="stats wrap">
+  <div class="stats-grid rv">
+    <div class="stat"><b>48<i>h</i></b><span>Response time</span></div>
+    <div class="stat"><b>1–2<i>wk</i></b><span>Typical sprint</span></div>
+    <div class="stat"><b>01<i>.</i></b><span>Point of contact</span></div>
+    <div class="stat"><b>100<i>%</i></b><span>Senior craft</span></div>
   </div>
 </section>
 
@@ -616,6 +702,15 @@
   </div>
 </section>
 
+<!-- ============ MANIFESTO ============ -->
+<section class="manifesto">
+  <div class="wrap rv">
+    <p class="kicker">The belief</p>
+    <h2>Great work starts<br><span class="ol">with a great</span> <span class="co">prompt.</span></h2>
+    <p>A sharp brief beats a big budget. Bring us the question — we'll bring the answer, crafted and shipped.</p>
+  </div>
+</section>
+
 <!-- ============ TIERS ============ -->
 <section class="tiers" id="tiers">
   <div class="wrap">
@@ -676,6 +771,7 @@
       <h2>Small on purpose.<br>Senior by design.</h2>
       <p class="lede">Prompt is a deliberately lean, multidisciplinary studio built on a simple belief: <strong>great work starts with a great prompt.</strong> Clients work directly with the people doing the work, decisions happen in hours not weeks, and momentum is treated as a feature — not an afterthought.</p>
       <p class="lede">Based in Nigeria, working with startups, B2B teams, and culture-driven brands across Africa and worldwide.</p>
+      <p class="toolkit"><em>&gt;</em> Toolkit — Figma · Framer · Webflow · Illustrator · After Effects</p>
       <div class="founder rv rv-d1">
         <span class="fv" aria-hidden="true"><svg viewBox="0 0 64 64" width="30" height="30"><path d="M20 18 L36 32 L20 46" fill="none" stroke="#FF4A2B" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><rect x="41" y="19" width="6" height="26" rx="3" fill="#F5F3ED"/></svg></span>
         <div>
@@ -781,6 +877,13 @@
 </footer>
 
 <script>
+  // scroll progress bar
+  const bar = document.querySelector('.progress');
+  addEventListener('scroll', () => {
+    const h = document.documentElement;
+    bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+  }, { passive: true });
+
   // reveal on scroll
   const io = new IntersectionObserver(es => {
     es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
