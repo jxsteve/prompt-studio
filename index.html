@@ -100,6 +100,7 @@
   @media(prefers-reduced-motion:reduce){
     .rv{opacity:1;transform:none;transition:none}
     .caret{animation:none}
+    .proll{animation:none}
     .mq-track{animation:none!important}
     html{scroll-behavior:auto}
     *{transition-duration:.01ms!important;animation-duration:.01ms!important}
@@ -213,10 +214,19 @@
   .pbar:hover{transform:translateY(-3px);box-shadow:0 42px 80px -30px rgba(16,16,20,.6)}
   .pbar .pfx{font-family:var(--mono);font-weight:700;color:var(--coral);font-size:18px;flex-shrink:0}
   .pbar .ptxt{
-    flex:1;font-family:var(--mono);font-size:15px;color:var(--bone);
-    white-space:nowrap;overflow:hidden;min-height:24px;display:flex;align-items:center;
+    flex:1;display:flex;align-items:center;font-family:var(--mono);font-size:15px;color:var(--bone);
+    white-space:nowrap;overflow:hidden;height:24px;
   }
-  .pbar #ptype{transition:opacity .45s var(--ease)}
+  .proll{display:flex;flex-direction:column;animation:roll 18s var(--ease) infinite}
+  .proll span{height:24px;display:flex;align-items:center;flex-shrink:0}
+  @keyframes roll{
+    0%,16%{transform:translateY(0)}
+    20%,36%{transform:translateY(-24px)}
+    40%,56%{transform:translateY(-48px)}
+    60%,76%{transform:translateY(-72px)}
+    80%,96%{transform:translateY(-96px)}
+    100%{transform:translateY(-120px)}
+  }
   .pbar .pcaret{
     display:inline-block;width:9px;height:19px;background:var(--coral);margin-left:3px;flex-shrink:0;
     border-radius:2px;animation:softblink 1.2s ease-in-out infinite;
@@ -610,7 +620,17 @@
     <p class="hero-sub rv on rv-d2">Prompt designs your product — <strong>then builds it.</strong> Functional apps, sites, brands, and stories that move fast and land hard. Senior hands, zero agency overhead.</p>
     <a class="pbar rv on rv-d3" href="#contact" aria-label="Start a project — brief us">
       <span class="pfx">&gt;</span>
-      <span class="ptxt"><span id="ptype">a brand that means business</span><span class="pcaret" aria-hidden="true"></span></span>
+      <span class="ptxt">
+        <span class="proll" aria-hidden="true">
+          <span>a brand that means business</span>
+          <span>a landing page that converts</span>
+          <span>an app, designed and built</span>
+          <span>a deck that raises the round</span>
+          <span>a story people repeat</span>
+          <span>a brand that means business</span>
+        </span>
+        <span class="pcaret" aria-hidden="true"></span>
+      </span>
       <span class="btn btn-coral">Run brief <span class="arr">→</span></span>
     </a>
     <div class="hero-alts rv on rv-d3">
@@ -978,28 +998,6 @@
 </footer>
 
 <script>
-  // hero prompt bar — briefs crossfade
-  (() => {
-    const el = document.getElementById('ptype');
-    if (matchMedia('(prefers-reduced-motion:reduce)').matches) return;
-    const briefs = [
-      'a brand that means business',
-      'a landing page that converts',
-      'an app, designed and built',
-      'a deck that raises the round',
-      'a story people repeat'
-    ];
-    let i = 0;
-    setInterval(() => {
-      el.style.opacity = 0;
-      setTimeout(() => {
-        i = (i + 1) % briefs.length;
-        el.textContent = briefs[i];
-        el.style.opacity = 1;
-      }, 480);
-    }, 3800);
-  })();
-
   // scroll progress bar
   const bar = document.querySelector('.progress');
   addEventListener('scroll', () => {
