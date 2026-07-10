@@ -64,7 +64,7 @@
     font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--coral);
   }
   .kicker::before{content:">";font-weight:700}
-  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:64px}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:52px}
   .sec-head h2{font-size:clamp(38px,5.2vw,68px);margin-top:18px}
   .sec-head p{max-width:380px;color:var(--t-mut);font-size:16px}
   .caret{
@@ -131,7 +131,7 @@
   .menu-open .menu-btn span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
   /* ============ HERO ============ */
-  .hero{position:relative;padding:210px 0 0;overflow:hidden}
+  .hero{position:relative;padding:180px 0 0;overflow:hidden}
   .hero-bg{position:absolute;inset:0;pointer-events:none}
   .hero-bg::before{
     content:"";position:absolute;inset:0;
@@ -205,7 +205,7 @@
   .hero-alts a{transition:color .2s;border-bottom:1px solid var(--hair);padding-bottom:3px}
   .hero-alts a:hover{color:var(--coral);border-color:var(--coral)}
   .hero-meta{
-    margin-top:76px;padding:22px 0;border-top:1px solid var(--hair);
+    margin-top:56px;padding:22px 0;border-top:1px solid var(--hair);
     display:flex;gap:40px;flex-wrap:wrap;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--t-mut);
   }
   .hero-meta b{color:var(--t-ink);font-weight:700}
@@ -218,26 +218,8 @@
   .mq-seq .sep{color:var(--coral);padding:0}
   @keyframes mq{to{transform:translateX(-50%)}}
 
-  /* ============ TERMINAL STRIP ============ */
-  .term-sec{padding:120px 0 0}
-  .term{
-    background:var(--ink);border-radius:20px;overflow:hidden;
-    box-shadow:0 40px 80px -40px rgba(16,16,20,.45);
-  }
-  .term-bar{display:flex;align-items:center;gap:8px;padding:16px 22px;border-bottom:1px solid var(--line-dark)}
-  .term-bar i{width:11px;height:11px;border-radius:50%;background:var(--line-dark)}
-  .term-bar i:first-child{background:var(--coral)}
-  .term-bar em{font-family:var(--mono);font-style:normal;font-size:12px;color:var(--t-bone-mut);margin-left:12px;letter-spacing:.08em}
-  .term-body{padding:34px 38px 42px;font-family:var(--mono);font-size:clamp(14px,1.6vw,17px);line-height:2.05;color:var(--t-bone-mut)}
-  .term-body .ln{display:block}
-  .term-body .pr{color:var(--coral);font-weight:700}
-  .term-body .cmd{color:var(--bone)}
-  .term-body .out{color:var(--t-bone-mut)}
-  .term-body .hl{color:var(--volt)}
-  .term-body .ok{color:#59d68f}
-
   /* ============ STATS ============ */
-  .stats{padding:110px 0 0}
+  .stats{padding:90px 0 0}
   .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--hair);border-radius:20px;overflow:hidden;background:#fff}
   .stat{padding:40px 34px 36px;position:relative;transition:background .3s}
   .stat+.stat{border-left:1px solid var(--hair)}
@@ -248,26 +230,9 @@
   @media(max-width:900px){.stats-grid{grid-template-columns:1fr 1fr}.stat:nth-child(3){border-left:none}.stat:nth-child(n+3){border-top:1px solid var(--hair)}}
   @media(max-width:520px){.stats-grid{grid-template-columns:1fr}.stat+.stat{border-left:none;border-top:1px solid var(--hair)}}
 
-  /* ============ MANIFESTO ============ */
-  .manifesto{padding:150px 0 160px;text-align:center;position:relative;overflow:hidden}
-  .manifesto::before{
-    content:"";position:absolute;left:50%;top:-260px;transform:translateX(-50%);width:760px;height:760px;border-radius:50%;
-    background:radial-gradient(circle,rgba(91,55,240,.10),transparent 62%);pointer-events:none;
-  }
-  .manifesto .kicker{justify-content:center}
-  .manifesto .mark{
-    width:64px;height:64px;border-radius:15px;background:var(--ink);margin:0 auto 34px;
-    display:grid;place-items:center;box-shadow:0 24px 48px -20px rgba(16,16,20,.4);
-    transform:rotate(-6deg);
-  }
-  .manifesto .mark svg{width:36px;height:36px}
-  .manifesto h2{font-size:clamp(42px,7.4vw,108px);letter-spacing:-.045em;line-height:1.02;margin-top:26px}
-  .manifesto .ol{color:transparent;-webkit-text-stroke:1.5px var(--ink)}
-  .manifesto .co{color:var(--coral)}
-  .manifesto p{margin:30px auto 0;max-width:520px;color:var(--t-mut);font-size:17px}
 
   /* ============ SERVICES ============ */
-  .services{padding:140px 0}
+  .services{padding:104px 0}
   .svc-list{border-top:1px solid var(--hair)}
   .svc{
     display:grid;grid-template-columns:90px 1.1fr 1.6fr auto;gap:32px;align-items:center;
@@ -302,7 +267,7 @@
   .svc:hover .go svg{stroke:var(--bone)}
 
   /* ============ WORK ============ */
-  .work{background:var(--ink);color:var(--bone);padding:140px 0;position:relative;overflow:hidden}
+  .work{background:var(--ink);color:var(--bone);padding:104px 0;position:relative;overflow:hidden}
   .work::before{
     content:"";position:absolute;top:-60px;right:-80px;width:420px;height:420px;pointer-events:none;opacity:.55;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M20 18 L36 32 L20 46' fill='none' stroke='%231d1d24' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='41' y='19' width='6' height='26' rx='3' fill='%231d1d24'/%3E%3C/svg%3E");
@@ -417,7 +382,7 @@
   @media(max-width:600px){.cs-in{padding:52px 24px 36px}}
 
   /* ============ PROCESS ============ */
-  .process{padding:140px 0}
+  .process{padding:104px 0}
   .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;counter-reset:step}
   .step{
     background:#fff;border:1px solid var(--hair);border-radius:18px;padding:32px 28px 36px;position:relative;
@@ -435,7 +400,7 @@
   .step:nth-child(1) .glyph{color:var(--coral)}
 
   /* ============ TIERS ============ */
-  .tiers{background:var(--bone-2);padding:140px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+  .tiers{background:var(--bone-2);padding:104px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
   .tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
   .tier{
     border-radius:20px;padding:40px 34px 44px;display:flex;flex-direction:column;
@@ -466,7 +431,7 @@
   }
 
   /* ============ STUDIO / ABOUT ============ */
-  .studio{padding:140px 0}
+  .studio{padding:104px 0}
   .studio-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:start}
   .studio h2{font-size:clamp(36px,4.6vw,58px);margin-top:18px}
   .studio .lede{font-size:19px;line-height:1.7;color:var(--t-mut);margin-top:28px}
@@ -491,24 +456,9 @@
   .belief b i{font-family:var(--mono);font-style:normal;font-size:12px;color:var(--coral)}
   .belief p{font-size:14.5px;color:var(--t-mut);margin-top:8px;padding-left:37px}
 
-  /* ============ CTA BANNER ============ */
-  .banner{background:var(--coral);color:var(--bone);padding:110px 0;position:relative;overflow:hidden}
-  .banner::after{
-    content:">_";position:absolute;right:-40px;bottom:-90px;font-family:var(--mono);font-weight:700;
-    font-size:340px;color:rgba(16,16,20,.14);line-height:1;pointer-events:none;
-  }
-  .banner::before{
-    content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
-    background:repeating-linear-gradient(-55deg,transparent 0 90px,rgba(16,16,20,.06) 90px 92px);
-  }
-  .banner .wrap{position:relative;z-index:1}
-  .banner h2{font-size:clamp(40px,6vw,84px);max-width:14ch;letter-spacing:-.04em}
-  .banner p{margin-top:22px;font-size:18px;max-width:460px;color:rgba(245,243,237,.85)}
-  .banner .btn{margin-top:38px;background:var(--ink);color:var(--bone)}
-  .banner .btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px -10px rgba(16,16,20,.5)}
 
   /* ============ CONTACT ============ */
-  .contact{background:var(--ink);color:var(--bone);padding:140px 0 120px}
+  .contact{background:var(--ink);color:var(--bone);padding:104px 0 120px}
   .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
   .contact h2{font-size:clamp(38px,5vw,62px);margin-top:18px}
   .contact .c-sub{color:var(--t-bone-mut);font-size:17px;margin-top:24px;max-width:420px;line-height:1.7}
@@ -640,19 +590,6 @@
     </div>
   </div>
 </div>
-
-<!-- ============ TERMINAL ============ -->
-<section class="term-sec wrap rv">
-  <div class="term" role="img" aria-label="Terminal window showing Prompt's promise: give us a brief and we return identity, interface, and narrative.">
-    <div class="term-bar"><i></i><i></i><i></i><em>prompt — studio</em></div>
-    <div class="term-body">
-      <span class="ln"><span class="pr">&gt;</span> <span class="cmd">prompt run --brief "we need to look like we mean it"</span></span>
-      <span class="ln out">parsing brief… found: ambition, deadline, taste</span>
-      <span class="ln out">generating → <span class="hl">identity</span> · <span class="hl">interface</span> · <span class="hl">working product</span></span>
-      <span class="ln"><span class="ok">✓ shipped.</span> <span class="out">momentum retained. no layers in between.</span></span>
-    </div>
-  </div>
-</section>
 
 <!-- ============ STATS ============ -->
 <section class="stats wrap">
@@ -836,18 +773,6 @@
   </div>
 </section>
 
-<!-- ============ MANIFESTO ============ -->
-<section class="manifesto">
-  <div class="wrap rv">
-    <span class="mark" aria-hidden="true">
-      <svg viewBox="0 0 64 64"><path d="M20 18 L36 32 L20 46" fill="none" stroke="#FF4A2B" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><rect x="41" y="19" width="6" height="26" rx="3" fill="#F5F3ED"/></svg>
-    </span>
-    <p class="kicker">The belief</p>
-    <h2>Great work starts<br><span class="ol">with a great</span> <span class="co">prompt.</span></h2>
-    <p>A sharp brief beats a big budget. Bring us the question — we'll bring the answer, crafted and shipped.</p>
-  </div>
-</section>
-
 <!-- ============ TIERS ============ -->
 <section class="tiers" id="tiers">
   <div class="wrap">
@@ -935,15 +860,6 @@
         <p>We make decisions and stand behind them. You hired a studio, not a survey.</p>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ============ CTA BANNER ============ -->
-<section class="banner">
-  <div class="wrap rv">
-    <h2>Got a brief?<br>That's our cue.</h2>
-    <p>Tell us what you're building. We'll come back within 48 hours with a point of view and a plan.</p>
-    <a class="btn" href="#contact">Start a project <span class="arr">→</span></a>
   </div>
 </section>
 
