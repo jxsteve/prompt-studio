@@ -8,7 +8,7 @@
 <meta property="og:title" content="Prompt — Design, on cue.">
 <meta property="og:description" content="Independent design agency. We design your product and build the working app or site — fast, by senior hands.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://prompt.studio">
+<meta property="og:url" content="https://jxsteve.github.io/prompt-studio/">
 <meta name="theme-color" content="#F5F3ED">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23101014'/%3E%3Cpath d='M20 18 L36 32 L20 46' fill='none' stroke='%23FF4A2B' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='41' y='19' width='6' height='26' rx='3' fill='%23F5F3ED'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +33,6 @@
     --volt:#5B37F0;
     --t-ink:#141418;
     --t-mut:#5F5E63;
-    --t-bone:#F5F3ED;
     --t-bone-mut:#A7A7AE;
     --disp:'Space Grotesk',system-ui,sans-serif;
     --body:'Inter',system-ui,sans-serif;
@@ -71,8 +70,6 @@
     display:inline-block;width:.13em;height:.8em;background:var(--coral);
     margin-left:.08em;transform:translateY(.06em);animation:softblink 1.2s ease-in-out infinite;
   }
-  @keyframes blink{50%{opacity:0}}
-
   /* reveal */
   .rv{opacity:0;transform:translateY(28px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
   .rv.on{opacity:1;transform:none}
@@ -99,8 +96,9 @@
   .btn-coral:hover{transform:translateY(-2px);box-shadow:0 12px 32px -8px rgba(255,74,43,.55)}
   .btn-ghost{background:transparent;border:1.5px solid var(--hair);color:var(--t-ink)}
   .btn-ghost:hover{border-color:var(--ink);transform:translateY(-2px)}
-  .btn-ghost-d{background:transparent;border:1.5px solid var(--line-dark);color:var(--bone)}
-  .btn-ghost-d:hover{border-color:var(--bone);transform:translateY(-2px)}
+
+  /* keyboard focus */
+  :focus-visible{outline:2px solid var(--coral);outline-offset:3px}
 
   /* progress bar */
   .progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:linear-gradient(90deg,var(--coral),var(--volt))}
@@ -211,7 +209,7 @@
   .hero-meta b{color:var(--t-ink);font-weight:700}
 
   /* marquee */
-  .mq{background:var(--ink);color:var(--bone);overflow:hidden;padding:20px 0;border-top:1px solid var(--ink);margin-top:0}
+  .mq{background:var(--ink);color:var(--bone);overflow:hidden;padding:20px 0}
   .mq-track{display:flex;gap:0;width:max-content;animation:mq 26s linear infinite}
   .mq-seq{display:flex;align-items:center;white-space:nowrap;font-family:var(--disp);font-weight:600;font-size:20px;letter-spacing:-.01em}
   .mq-seq span{padding:0 28px}
@@ -352,6 +350,7 @@
     background:var(--ink);color:var(--bone);padding:0;overflow:hidden;
   }
   .cs::backdrop{background:rgba(16,16,20,.72);backdrop-filter:blur(6px)}
+  body:has(dialog[open]){overflow:hidden}
   .cs-in{padding:46px 46px 50px;max-height:82vh;overflow-y:auto}
   .cs-close{
     position:absolute;top:18px;right:18px;width:42px;height:42px;border-radius:50%;cursor:pointer;
@@ -383,7 +382,7 @@
 
   /* ============ PROCESS ============ */
   .process{padding:104px 0}
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;counter-reset:step}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
   .step{
     background:#fff;border:1px solid var(--hair);border-radius:18px;padding:32px 28px 36px;position:relative;
     transition:transform .3s var(--ease),box-shadow .3s;
@@ -416,8 +415,9 @@
   .tier li::before{content:">";font-family:var(--mono);font-weight:700;color:var(--coral);line-height:1.5}
   .tier .btn{width:100%}
   .tier-hot{background:var(--ink);border-color:var(--ink);color:var(--bone);overflow:hidden}
+  .tier-hot>*{position:relative;z-index:1}
   .tier-hot::after{
-    content:"";position:absolute;right:-46px;bottom:-46px;width:190px;height:190px;pointer-events:none;opacity:.8;
+    content:"";position:absolute;right:-46px;bottom:-46px;width:190px;height:190px;pointer-events:none;opacity:.8;z-index:0;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M20 18 L36 32 L20 46' fill='none' stroke='%231d1d24' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='41' y='19' width='6' height='26' rx='3' fill='%231d1d24'/%3E%3C/svg%3E");
     background-size:contain;background-repeat:no-repeat;
   }
@@ -479,6 +479,7 @@
     border:1px solid var(--line-dark);border-radius:12px;padding:14px 16px;outline:none;width:100%;
     transition:border-color .2s,box-shadow .2s;
   }
+  input::placeholder,textarea::placeholder{color:var(--t-bone-mut);opacity:.75}
   input:focus,textarea:focus,select:focus{border-color:var(--coral);box-shadow:0 0 0 3px rgba(255,74,43,.18)}
   textarea{min-height:130px;resize:vertical}
   select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23A7A7AE' stroke-width='2' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
@@ -512,9 +513,10 @@
     .nav-links{
       position:fixed;top:78px;left:0;right:0;flex-direction:column;align-items:flex-start;
       background:var(--bone);border-bottom:1px solid var(--hair);padding:28px 22px 34px;gap:22px;
-      transform:translateY(-130%);transition:transform .35s var(--ease);font-size:17px;
+      transform:translateY(-130%);visibility:hidden;font-size:17px;
+      transition:transform .35s var(--ease),visibility .35s;
     }
-    .menu-open .nav-links{transform:none}
+    .menu-open .nav-links{transform:none;visibility:visible}
     .svc{grid-template-columns:1fr;grid-template-areas:none;gap:12px;padding:34px 0}
     .svc .go{display:none}
     .hero-meta{gap:18px 32px}
@@ -559,7 +561,7 @@
     <span class="orn orn-coord">6.5244°N · 3.3792°E — LAGOS</span>
   </div>
   <div class="wrap">
-    <p class="kicker hero-tag rv on">Independent design studio</p>
+    <p class="kicker hero-tag rv on">Independent design agency</p>
     <h1 class="rv on rv-d1">Design,<br><span class="oncue">on cue</span><span class="caret" aria-hidden="true"></span></h1>
     <p class="hero-sub rv on rv-d2">Prompt designs your product — <strong>then builds it.</strong> Functional apps, sites, brands, and stories that move fast and land hard. Senior hands, zero agency overhead.</p>
     <a class="pbar rv on rv-d3" href="#contact" aria-label="Start a project — brief us">
@@ -592,12 +594,14 @@
 </div>
 
 <!-- ============ STATS ============ -->
-<section class="stats wrap">
-  <div class="stats-grid rv">
-    <div class="stat"><b>48<i>h</i></b><span>Response time</span></div>
-    <div class="stat"><b>1–2<i>wk</i></b><span>Typical sprint</span></div>
-    <div class="stat"><b>01<i>.</i></b><span>Point of contact</span></div>
-    <div class="stat"><b>100<i>%</i></b><span>Senior craft</span></div>
+<section class="stats">
+  <div class="wrap">
+    <div class="stats-grid rv">
+      <div class="stat"><b>48<i>h</i></b><span>Response time</span></div>
+      <div class="stat"><b>1–2<i>wk</i></b><span>Typical sprint</span></div>
+      <div class="stat"><b>01<i>.</i></b><span>Point of contact</span></div>
+      <div class="stat"><b>100<i>%</i></b><span>Senior craft</span></div>
+    </div>
   </div>
 </section>
 
