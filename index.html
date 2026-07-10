@@ -14,6 +14,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script>
+  // set theme before first paint to avoid flash
+  (() => {
+    const t = localStorage.getItem('theme') ||
+      (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
+    if (t === 'dark') document.documentElement.dataset.theme = 'dark';
+  })();
+</script>
 <style>
   /* ============================================================
      PROMPT — Design, on cue.
@@ -38,13 +46,28 @@
     --body:'Inter',system-ui,sans-serif;
     --mono:'Space Mono',ui-monospace,monospace;
     --ease:cubic-bezier(.22,.9,.3,1);
+    /* theme surfaces (light) */
+    --pg:#F5F3ED;
+    --pg-2:#EDEAE0;
+    --card:#ffffff;
+    --nav-bg:rgba(245,243,237,.8);
+  }
+  [data-theme="dark"]{
+    --pg:#101014;
+    --pg-2:#16161b;
+    --card:#16161b;
+    --hair:#2a2a32;
+    --t-ink:#F5F3ED;
+    --t-mut:#A7A7AE;
+    --nav-bg:rgba(16,16,20,.75);
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   ::selection{background:var(--coral);color:var(--bone)}
   body{
-    font-family:var(--body);background:var(--bone);color:var(--t-ink);
+    font-family:var(--body);background:var(--pg);color:var(--t-ink);
     -webkit-font-smoothing:antialiased;overflow-x:hidden;font-size:16px;line-height:1.6;
+    transition:background .3s,color .3s;
   }
   a{color:inherit;text-decoration:none}
   img,svg{display:block;max-width:100%}
@@ -90,12 +113,10 @@
   }
   .btn .arr{transition:transform .18s var(--ease)}
   .btn:hover .arr{transform:translateX(4px)}
-  .btn-ink{background:var(--ink);color:var(--bone)}
-  .btn-ink:hover{transform:translateY(-2px);box-shadow:0 12px 30px -10px rgba(16,16,20,.5)}
   .btn-coral{background:var(--coral);color:var(--bone)}
   .btn-coral:hover{transform:translateY(-2px);box-shadow:0 12px 32px -8px rgba(255,74,43,.55)}
   .btn-ghost{background:transparent;border:1.5px solid var(--hair);color:var(--t-ink)}
-  .btn-ghost:hover{border-color:var(--ink);transform:translateY(-2px)}
+  .btn-ghost:hover{border-color:var(--t-ink);transform:translateY(-2px)}
 
   /* keyboard focus */
   :focus-visible{outline:2px solid var(--coral);outline-offset:3px}
@@ -106,9 +127,19 @@
   /* ============ NAV ============ */
   nav{
     position:fixed;top:0;left:0;right:0;z-index:100;
-    background:rgba(245,243,237,.8);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    background:var(--nav-bg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
     border-bottom:1px solid var(--hair);
   }
+  .nav-right{display:flex;align-items:center;gap:16px}
+  .theme-btn{
+    width:40px;height:40px;border-radius:50%;cursor:pointer;display:grid;place-items:center;
+    background:transparent;border:1.5px solid var(--hair);color:var(--t-ink);font-size:15px;line-height:1;
+    transition:border-color .2s,transform .2s var(--ease);
+  }
+  .theme-btn:hover{border-color:var(--t-ink);transform:rotate(-14deg)}
+  .theme-btn .sun{display:none}
+  [data-theme="dark"] .theme-btn .sun{display:block}
+  [data-theme="dark"] .theme-btn .moon{display:none}
   .nav-in{display:flex;align-items:center;justify-content:space-between;height:78px}
   .brand{display:flex;align-items:center;gap:12px;font-family:var(--disp);font-weight:700;font-size:22px;letter-spacing:-.03em}
   .brand svg{width:38px;height:38px}
@@ -123,7 +154,7 @@
   .nav-links a:not(.btn):hover::after{transform:scaleX(1);transform-origin:left}
   .nav-links .btn{padding:11px 24px;font-size:14.5px}
   .menu-btn{display:none;background:none;border:none;cursor:pointer;padding:10px}
-  .menu-btn span{display:block;width:24px;height:2px;background:var(--ink);margin:5px 0;transition:transform .25s,opacity .25s}
+  .menu-btn span{display:block;width:24px;height:2px;background:var(--t-ink);margin:5px 0;transition:transform .25s,opacity .25s}
   .menu-open .menu-btn span:nth-child(1){transform:translateY(7px) rotate(45deg)}
   .menu-open .menu-btn span:nth-child(2){opacity:0}
   .menu-open .menu-btn span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
@@ -149,8 +180,8 @@
     pointer-events:none;
   }
   .hero-caret svg{width:100%;height:auto}
-  .hero-caret .chev{stroke:var(--bone-2);animation:caretPulse 6s ease-in-out infinite}
-  .hero-caret .bar{fill:var(--bone-2);animation:caretPulse 6s ease-in-out 3s infinite}
+  .hero-caret .chev{stroke:var(--pg-2);animation:caretPulse 6s ease-in-out infinite}
+  .hero-caret .bar{fill:var(--pg-2);animation:caretPulse 6s ease-in-out 3s infinite}
   @keyframes caretPulse{50%{opacity:.55}}
   .orn-ring{top:110px;right:6%;width:230px;height:230px;border:1.5px dashed var(--coral);border-radius:50%;opacity:.55;animation:spin 44s linear infinite}
   .orn-ring::after{content:"";position:absolute;top:-6px;left:50%;width:11px;height:11px;border-radius:50%;background:var(--coral)}
@@ -218,10 +249,10 @@
 
   /* ============ STATS ============ */
   .stats{padding:90px 0 0}
-  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--hair);border-radius:20px;overflow:hidden;background:#fff}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--hair);border-radius:20px;overflow:hidden;background:var(--card)}
   .stat{padding:40px 34px 36px;position:relative;transition:background .3s}
   .stat+.stat{border-left:1px solid var(--hair)}
-  .stat:hover{background:var(--bone-2)}
+  .stat:hover{background:var(--pg-2)}
   .stat b{font-family:var(--disp);font-weight:700;font-size:clamp(40px,4.6vw,60px);letter-spacing:-.04em;line-height:1;display:block}
   .stat b i{font-style:normal;color:var(--coral)}
   .stat span{display:block;margin-top:14px;font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--t-mut)}
@@ -384,7 +415,7 @@
   .process{padding:104px 0}
   .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
   .step{
-    background:#fff;border:1px solid var(--hair);border-radius:18px;padding:32px 28px 36px;position:relative;
+    background:var(--card);border:1px solid var(--hair);border-radius:18px;padding:32px 28px 36px;position:relative;
     transition:transform .3s var(--ease),box-shadow .3s;
   }
   .step:hover{transform:translateY(-6px);box-shadow:0 24px 48px -24px rgba(16,16,20,.22)}
@@ -399,11 +430,11 @@
   .step:nth-child(1) .glyph{color:var(--coral)}
 
   /* ============ TIERS ============ */
-  .tiers{background:var(--bone-2);padding:104px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+  .tiers{background:var(--pg-2);padding:104px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
   .tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
   .tier{
     border-radius:20px;padding:40px 34px 44px;display:flex;flex-direction:column;
-    background:#fff;border:1px solid var(--hair);position:relative;
+    background:var(--card);border:1px solid var(--hair);position:relative;
     transition:transform .3s var(--ease),box-shadow .3s;
   }
   .tier:hover{transform:translateY(-6px);box-shadow:0 28px 56px -26px rgba(16,16,20,.25)}
@@ -443,7 +474,7 @@
   .toolkit em{font-style:normal;color:var(--coral);font-weight:700}
   .founder{
     margin-top:44px;display:flex;align-items:center;gap:18px;padding:22px 26px;
-    background:#fff;border:1px solid var(--hair);border-radius:16px;max-width:480px;
+    background:var(--card);border:1px solid var(--hair);border-radius:16px;max-width:480px;
   }
   .founder .fv{
     width:56px;height:56px;border-radius:14px;background:var(--ink);display:grid;place-items:center;flex-shrink:0;
@@ -495,6 +526,14 @@
   .foot-links a:hover{color:var(--bone)}
   .foot small{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em}
 
+  /* dark-theme refinements: keep ink sections distinct from the dark page */
+  [data-theme="dark"] .work,
+  [data-theme="dark"] .contact{border-top:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark)}
+  [data-theme="dark"] .mq{border-top:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark)}
+  [data-theme="dark"] .pbar{border:1px solid var(--line-dark)}
+  [data-theme="dark"] .svc::before{background:var(--ink-3)}
+  [data-theme="dark"] .tier-hot{border-color:var(--line-dark)}
+
   /* ============ RESPONSIVE ============ */
   @media(max-width:1000px){
     .steps{grid-template-columns:repeat(2,1fr)}
@@ -512,7 +551,7 @@
     .menu-btn{display:block}
     .nav-links{
       position:fixed;top:78px;left:0;right:0;flex-direction:column;align-items:flex-start;
-      background:var(--bone);border-bottom:1px solid var(--hair);padding:28px 22px 34px;gap:22px;
+      background:var(--pg);border-bottom:1px solid var(--hair);padding:28px 22px 34px;gap:22px;
       transform:translateY(-130%);visibility:hidden;font-size:17px;
       transition:transform .35s var(--ease),visibility .35s;
     }
@@ -535,14 +574,17 @@
       <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="15" fill="#101014"/><path d="M20 18 L36 32 L20 46" fill="none" stroke="#FF4A2B" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><rect x="41" y="19" width="6" height="26" rx="3" fill="#F5F3ED"/></svg>
       <span>prompt<span class="dot">.</span></span>
     </a>
-    <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
-    <div class="nav-links">
-      <a href="#services">Services</a>
-      <a href="#work">Work</a>
-      <a href="#process">Process</a>
-      <a href="#tiers">Engagements</a>
-      <a href="#studio">Studio</a>
-      <a class="btn btn-coral" href="#contact">Start a project <span class="arr">→</span></a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#process">Process</a>
+        <a href="#tiers">Engagements</a>
+        <a href="#studio">Studio</a>
+        <a class="btn btn-coral" href="#contact">Start a project <span class="arr">→</span></a>
+      </div>
+      <button class="theme-btn" aria-label="Toggle dark mode" aria-pressed="false"><span class="moon" aria-hidden="true">☾</span><span class="sun" aria-hidden="true">☀</span></button>
+      <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </div>
 </nav>
@@ -983,6 +1025,22 @@
   csModal.querySelector('.cs-close').addEventListener('click', () => csModal.close());
   csModal.addEventListener('click', e => { if (e.target === csModal) csModal.close(); }); // backdrop click
   document.getElementById('cs-cta').addEventListener('click', () => csModal.close());
+
+  // theme toggle
+  const themeBtn = document.querySelector('.theme-btn');
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+  const applyTheme = dark => {
+    document.documentElement.dataset.theme = dark ? 'dark' : '';
+    if (!dark) delete document.documentElement.dataset.theme;
+    themeMeta.content = dark ? '#101014' : '#F5F3ED';
+    themeBtn.setAttribute('aria-pressed', dark);
+  };
+  applyTheme(document.documentElement.dataset.theme === 'dark');
+  themeBtn.addEventListener('click', () => {
+    const dark = document.documentElement.dataset.theme !== 'dark';
+    applyTheme(dark);
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  });
 
   // mobile menu
   const menuBtn = document.querySelector('.menu-btn');
