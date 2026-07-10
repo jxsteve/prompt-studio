@@ -216,6 +216,7 @@
     flex:1;font-family:var(--mono);font-size:15px;color:var(--bone);
     white-space:nowrap;overflow:hidden;min-height:24px;display:flex;align-items:center;
   }
+  .pbar #ptype{transition:opacity .45s var(--ease)}
   .pbar .pcaret{
     display:inline-block;width:9px;height:19px;background:var(--coral);margin-left:3px;flex-shrink:0;
     border-radius:2px;animation:softblink 1.2s ease-in-out infinite;
@@ -977,7 +978,7 @@
 </footer>
 
 <script>
-  // hero prompt bar — briefs type themselves
+  // hero prompt bar — briefs crossfade
   (() => {
     const el = document.getElementById('ptype');
     if (matchMedia('(prefers-reduced-motion:reduce)').matches) return;
@@ -988,19 +989,15 @@
       'a deck that raises the round',
       'a story people repeat'
     ];
-    let p = 0, i = briefs[0].length, deleting = true;
-    function tick() {
-      const text = briefs[p];
-      i += deleting ? -1 : 1;
-      el.textContent = text.slice(0, i);
-      let wait;
-      if (!deleting && i === text.length) { wait = 3000; deleting = true; }        // linger on full brief
-      else if (deleting && i === 0) { p = (p + 1) % briefs.length; deleting = false; wait = 600; } // breathe before next
-      else if (deleting) { wait = 26; }                                            // steady, quick erase
-      else { wait = i < 3 ? 110 : 62; }                                            // ease into each phrase
-      setTimeout(tick, wait);
-    }
-    setTimeout(tick, 3000); // let the first brief linger before cycling
+    let i = 0;
+    setInterval(() => {
+      el.style.opacity = 0;
+      setTimeout(() => {
+        i = (i + 1) % briefs.length;
+        el.textContent = briefs[i];
+        el.style.opacity = 1;
+      }, 480);
+    }, 3800);
   })();
 
   // scroll progress bar
